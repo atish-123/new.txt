@@ -1,0 +1,51 @@
+create database ecommerce;
+use ecommerce;
+
+
+CREATE TABLE accounts(accountid  INT NOT NULL PRIMARY KEY AUTO_INCREMENT, balance FLOAT);
+CREATE TABLE users(userid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,username varchar(200),password VARCHAR(100) NOT NULL,contactnumber varchar(10),email varchar(255) NOT NULL, 
+     question VARCHAR(255),answer VARCHAR(255), role varchar(100));
+CREATE TABLE suppliers(supplierid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,organization VARCHAR(100) NOT NULL,location VARCHAR(100) NOT NULL,
+		        email VARCHAR(50) NOT NULL,contactnumber VARCHAR(10) NOT NULL, discounttype VARCHAR(50) NOT NULL,
+				accountid INT NOT NULL,
+                userid INT NOT NULL,
+                CONSTRAINT fk_supplierusers FOREIGN KEY(userid) REFERENCES users(userid),
+			    CONSTRAINT fk_supplieraccounts FOREIGN KEY(accountid) REFERENCES accounts(accountid));
+
+
+CREATE TABLE products(productid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(50) NOT NULL, picture VARCHAR(300) NOT NULL, description VARCHAR(300) NOT NULL,
+ 			unitprice INT NOT NULL,available BOOL NOT NULL,categoryid INT NOT NULL,supplierid INT NOT NULL,
+			CONSTRAINT fk_productscategories FOREIGN KEY(categoryid) REFERENCES categories(categoryid),unitinstock INT NOT NULL, 
+			CONSTRAINT fk_productssupplier FOREIGN KEY(supplierid) REFERENCES suppliers(supplierid));
+			
+CREATE TABLE shippers(shipperid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,userid INT NOT NULL,
+                       email VARCHAR(200) NOT NULL, contactnumber VARCHAR(10) NOT NULL, organization VARCHAR(50),
+						CONSTRAINT fk_usersshippers FOREIGN KEY(userid) REFERENCES users(userid));
+
+
+
+CREATE TABLE customers(customerid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,firstname VARCHAR(100) NOT NULL,lastname VARCHAR(100),
+			email VARCHAR(100) NOT NULL,contactnumber VARCHAR(10),address VARCHAR(255),
+            roleid INT NOT NULL, accountid INT NOT NULL,userid INT NOT NULL,
+            CONSTRAINT fk_customersusers FOREIGN KEY(userid) REFERENCES users(userid),
+			CONSTRAINT fk_customeraccounts FOREIGN KEY(accountid) REFERENCES accounts(accountid));
+INSERT INTO accounts(accountid,balance) VALUES(1,12000); 
+INSERT INTO accounts(accountid,balance) VALUES(2,10000); 
+INSERT INTO accounts(accountid,balance) VALUES(3,8000); 
+INSERT INTO accounts(accountid,balance) VALUES(4,7000); 
+INSERT INTO accounts(accountid,balance) VALUES(5,12000); 
+INSERT INTO users(username,password,contactnumber,email,question,answer,role) 
+VALUES("abhi","1234","9882437123","abhishekbhoranj@gmail.com","what is ur favourite books","panchtantra","user"); 
+INSERT INTO users(username,password,contactnumber,email,question,answer,role)VALUES("akash","ak123","9882437124","akash886@gmail.com","what is ur favourite movie","jamesbond","user"); 
+INSERT INTO users(username,password,contactnumber,email,question,answer,role)VALUES("imtiaz","peek","9882437125","imtiaz67575@gmail.com","what is ur favourite game","cricket","user"); 
+INSERT INTO users(username,password,contactnumber,email,question,answer,role)VALUES("ruchi","seed","9882437128","ruchi64@gmail.com","what is ur favourite snacks","lays","user");
+INSERT INTO users(username,password,contactnumber,email,question,answer,role)VALUES("ashish","kiit","9882437126","ashishhh@gmail.com","who is ur favourite singer ","ar.rahman","user"); 
+INSERT INTO users(username,password,contactnumber,email,question,answer,role)VALUES("ritu","morning","9882437127","ritu67868@gmail.com","what is ur favourite books","3 idiots","user");
+
+
+
+INSERT INTO suppliers( organization,location,email,contactnumber,discounttype,accountid,userid) VALUES("Samsung Electronics", "Punjab","samsungelectronics@gmail.com","1234567890","20% off",2,2);
+INSERT INTO suppliers( organization,location,email,contactnumber,discounttype,accountid,userid) VALUES("Myntra", "Bombay","myntra.123@gmail.com","123867890","60% off",3,4);
+INSERT INTO suppliers( organization,location,email,contactnumber,discounttype,accountid,userid) VALUES("flipkart", "Delhi","flipkart@gmail.com","123856790","30% off",5,1);
+INSERT INTO suppliers( organization,location,email,contactnumber,discounttype,accountid,userid) VALUES("Transflower", "Pune","transflower@gmail.com","6543789790","50% off",1,3);
+INSERT INTO suppliers( organization,location,email,contactnumber,discounttype,accountid,userid) VALUES("Fruits Company", "Bangalore","fruits.234@gmail.com","987656790","10% off",4,5); 
