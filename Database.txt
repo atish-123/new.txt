@@ -1,0 +1,225 @@
+create database ecommerce;
+use ecommerce;
+
+CREATE TABLE `ecommerce`.`users` (
+  `userid` INT NOT NULL,
+  `username` VARCHAR(200) NULL,
+  `password` VARCHAR(100) NOT NULL,
+  `contactnumber` VARCHAR(10) NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `role` VARCHAR(100) NULL,
+  PRIMARY KEY (`userid`));
+  
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('1', 'Atish', 'ak@123', '8234567800', 'atish@123gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('2', 'Swati', 'sw@123', '8525693522', 'swati123@gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('3', 'Ramesh', 'ra@123', '8585852652', 'ramesh123@gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('4', 'Kusum', 'ka@123', '8596969328', 'kusum123@gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('5', 'Ravi', 'ra@123', '9465895689', 'ravi123@gmail.com', 'user');
+
+
+CREATE TABLE `ecommerce`.`accounts` (
+  `accountsid` INT NOT NULL,
+  `balance` FLOAT NULL,
+  PRIMARY KEY (`accountsid`));
+  
+INSERT INTO `ecommerce`.`accounts` (`accountsid`, `balance`) VALUES ('1', '12500');
+INSERT INTO `ecommerce`.`accounts` (`accountsid`, `balance`) VALUES ('2', '12000');
+INSERT INTO `ecommerce`.`accounts` (`accountsid`, `balance`) VALUES ('3', '13000');
+INSERT INTO `ecommerce`.`accounts` (`accountsid`, `balance`) VALUES ('4', '14500');
+INSERT INTO `ecommerce`.`accounts` (`accountsid`, `balance`) VALUES ('5', '15000');
+
+
+CREATE TABLE `ecommerce`.`categories` (
+  `idcategories` INT NOT NULL,
+  `title` VARCHAR(55) NOT NULL,
+  `pictures` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`idcategories`));
+  
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('1', 'Electronics', 'laptop');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('2', 'Cloths', 'shirt');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('3', 'Toys', 'teddy');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('4', 'Grocery', 'Oil');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('5', 'Fruits', 'Apple');
+
+ALTER TABLE `ecommerce`.`suppliers` 
+ADD INDEX `supplierusers_idx` (`userid` ASC) VISIBLE;
+;
+ALTER TABLE `ecommerce`.`suppliers` 
+ADD CONSTRAINT `supplierusers`
+  FOREIGN KEY (`userid`)
+  REFERENCES `ecommerce`.`users` (`userid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+  
+INSERT INTO `ecommerce`.`suppliers` (`suppliersid`, `organization`, `location`, `email`, `contactnumber`, `discounttype`, `accountsid`, `userid`) VALUES ('1', 'Apple Store', 'Mumbai', 'applestore@gmail.com', '8169394775', '20%  off', '3', '1');
+INSERT INTO `ecommerce`.`suppliers` (`suppliersid`, `organization`, `location`, `email`, `contactnumber`, `discounttype`, `accountsid`, `userid`) VALUES ('2', 'Samsung Store', 'Patna', 'samsungstore@gmail.com', '8539564852', '30% off', '5', '2');
+INSERT INTO `ecommerce`.`suppliers` (`suppliersid`, `organization`, `location`, `email`, `contactnumber`, `discounttype`, `accountsid`, `userid`) VALUES ('3', 'Adidas showroom', 'Delhi', 'adidas@gmail.com', '7598569856', '50% off', '2', '1');
+INSERT INTO `ecommerce`.`suppliers` (`suppliersid`, `organization`, `location`, `email`, `contactnumber`, `discounttype`, `accountsid`, `userid`) VALUES ('4', 'Nike showroom', 'Thane', 'nike@gmail.com', '8696756923', '40% off', '4', '2');
+INSERT INTO `ecommerce`.`suppliers` (`suppliersid`, `organization`, `location`, `email`, `contactnumber`, `discounttype`, `accountsid`, `userid`) VALUES ('5', 'DLF Mall', 'Noida', 'df@gmail.com', '9546898987', '50% off', '1', '5');
+
+CREATE TABLE `ecommerce`.`products` (
+  `productid` INT NOT NULL,
+  `title` VARCHAR(50) NOT NULL,
+  `picture` VARCHAR(300) NOT NULL,
+  `description` VARCHAR(300) NOT NULL,
+  `unitprice` INT NOT NULL,
+  `available` TINYINT NULL,
+  `categoryid` INT NOT NULL,
+  `supplierid` INT NOT NULL,
+  `` VARCHAR(45) NULL,
+  PRIMARY KEY (`productid`),
+  INDEX `productcategories_idx` (`categoryid` ASC) VISIBLE,
+  INDEX `productsuppliers_idx` (`supplierid` ASC) VISIBLE,
+  CONSTRAINT `productcategories`
+    FOREIGN KEY (`categoryid`)
+    REFERENCES `ecommerce`.`categories` (`idcategories`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `productsuppliers`
+    FOREIGN KEY (`supplierid`)
+    REFERENCES `ecommerce`.`suppliers` (`suppliersid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+INSERT INTO `ecommerce`.`products` (`productid`, `title`, `picture`, `description`, `unitprice`, `available`, `categoryid`, `supplierid`) VALUES ('1', 'Television', 'Television.jpg', 'World Best Telivision', '18000', '1', '1', '1');
+INSERT INTO `ecommerce`.`products` (`productid`, `title`, `picture`, `description`, `unitprice`, `available`, `categoryid`, `supplierid`) VALUES ('2', 'Shirt', 'Shirt.jpg', 'Nice Shirt', '2600', '2', '1', '3');
+INSERT INTO `ecommerce`.`products` (`productid`, `title`, `picture`, `description`, `unitprice`, `available`, `categoryid`, `supplierid`) VALUES ('3', 'Jeans', 'Jeans.jpg', 'Awesome skinny fit jeans', '3500', '3', '2', '2');
+INSERT INTO `ecommerce`.`products` (`productid`, `title`, `picture`, `description`, `unitprice`, `available`, `categoryid`, `supplierid`) VALUES ('4', 'Iphone 14', 'Iphone14.jpg', 'Latest Version', '90000', '2', '2', '1');
+INSERT INTO `ecommerce`.`products` (`productid`, `title`, `picture`, `description`, `unitprice`, `available`, `categoryid`, `supplierid`) VALUES ('5', 'Fan', 'Fan.jpg', 'Latest Upgradation in Fan', '4500', '2', '1', '4');
+
+CREATE TABLE `ecommerce`.`shippers` (
+  `shipperid` INT NOT NULL,
+  `userid` INT NOT NULL,
+  `email` VARCHAR(200) NOT NULL,
+  `contactnumber` VARCHAR(10) NOT NULL,
+  `organization` VARCHAR(50) NULL,
+  PRIMARY KEY (`shipperid`),
+  INDEX `usershippers_idx` (`userid` ASC) VISIBLE,
+  CONSTRAINT `usershippers`
+    FOREIGN KEY (`userid`)
+    REFERENCES `ecommerce`.`users` (`userid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('1', '1', 'ak123@gmail.com', '8569696989', 'ekart');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('2', '3', 'ck123@gmail.com', '9696968965', 'meesho');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('3', '4', 'rk123@gmail.com', '9293568956', 'flipkart');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('4', '2', 'jk123@gmail.com', '9465235689', 'amazon');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('5', '5', 'mk123@gmail.com', '9636989878', 'Blinkit');
+
+
+CREATE TABLE `ecommerce`.`customers` (
+  `customerid` INT NOT NULL,
+  `firstname` VARCHAR(100) NOT NULL,
+  `lastname` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `contact number` VARCHAR(10) NOT NULL,
+  `address` VARCHAR(255) NOT NULL,
+  `accountid` INT NOT NULL,
+  `userid` INT NOT NULL,
+  PRIMARY KEY (`customerid`),
+  INDEX `customerusers_idx` (`userid` ASC) VISIBLE,
+  INDEX `customeraccounts_idx` (`accountid` ASC) VISIBLE,
+  CONSTRAINT `customerusers`
+    FOREIGN KEY (`userid`)
+    REFERENCES `ecommerce`.`users` (`userid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `customeraccounts`
+    FOREIGN KEY (`accountid`)
+    REFERENCES `ecommerce`.`accounts` (`accountsid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('1', 'Atish', 'Kumar', 'ak123@gmail.com', '8169394775', 'Buxar', '2', '1');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('2', 'Ankit ', 'Tiwari', 'at123@gmail.com', '6201440960', 'Ara', '1', '5');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('3', 'Ravi', 'Kumar', 'ravi@123gmail.com', '9548956556', 'Thane', '3', '4');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('4', 'Saurabh', 'Kumar', 'saurabh@123gmail.com', '8569365689', 'Patna', '4', '2');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('5', 'Mukesh', 'Singh', 'mk@123gmail.com', '6201445256', 'Bihta', '5', '3');
+
+CREATE TABLE `ecommerce`.`orders` (
+  `orderid` INT NOT NULL,
+  `orderdate DATETIME` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(20) NULL,
+  `customerid` INT NOT NULL,
+  PRIMARY KEY (`orderid`),
+  INDEX `ordercustomers_idx` (`customerid` ASC) VISIBLE,
+  CONSTRAINT `ordercustomers`
+    FOREIGN KEY (`customerid`)
+    REFERENCES `ecommerce`.`customers` (`customerid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('1', '2022-10-25 08:18:15', 'inprocess', '1');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('2', '2022-10-26 09:25:17', 'inprocess', '2');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('3', '2022-10-25 10:28:17', 'inprocess', '3');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('4', '2022-10-25 08:18:17', 'inprocess', '4');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('5', '2022-10-26 12:18:19', 'inproces', '5');
+
+CREATE TABLE `ecommerce`.`orderdetails` (
+  `orderdetailid` INT NOT NULL,
+  `orderid` INT NOT NULL,
+  `productid` INT NOT NULL,
+  `quantity` INT NULL,
+  PRIMARY KEY (`orderdetailid`),
+  INDEX `deliveryorders_idx` (`orderid` ASC) VISIBLE,
+  INDEX `deliveryshippers_idx` (`productid` ASC) VISIBLE,
+  CONSTRAINT `deliveryorders`
+    FOREIGN KEY (`orderid`)
+    REFERENCES `ecommerce`.`orders` (`orderid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `deliveryshippers`
+    FOREIGN KEY (`productid`)
+    REFERENCES `ecommerce`.`products` (`productid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (1,1,20);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (2,2,11);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (3,3,16);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (4,4,10);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (5,5,15);
+
+
+CREATE TABLE `ecommerce`.`deleveries` (
+  `deleiveryid` INT NOT NULL,
+  `status` VARCHAR(200) NOT NULL,
+  `orderid` INT NOT NULL,
+  `shipperid` INT NOT NULL,
+  PRIMARY KEY (`deleiveryid`),
+  INDEX `deliveryorders_idx` (`orderid` ASC) VISIBLE,
+  INDEX `deliveryshippers_idx` (`shipperid` ASC) VISIBLE,
+  CONSTRAINT `deliveryorders`
+    FOREIGN KEY (`orderid`)
+    REFERENCES `ecommerce`.`orders` (`orderid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `deliveryshippers`
+    FOREIGN KEY (`shipperid`)
+    REFERENCES `ecommerce`.`shippers` (`shipperid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+INSERT INTO `ecommerce`.`deliveries` (`deliveriesid`, `status`, `orderid`, `shipperid`) VALUES ('1', 'delivered', '3', '1');
+INSERT INTO `ecommerce`.`deliveries` (`deliveriesid`, `status`, `orderid`, `shipperid`) VALUES ('2', 'delivered', '4', '2');
+INSERT INTO `ecommerce`.`deliveries` (`deliveriesid`, `status`, `orderid`, `shipperid`) VALUES ('3', 'delivered', '5', '3');
+INSERT INTO `ecommerce`.`deliveries` (`deliveriesid`, `status`, `orderid`, `shipperid`) VALUES ('4', 'delivered', '2', '4');
+INSERT INTO `ecommerce`.`deliveries` (`deliveriesid`, `status`, `orderid`, `shipperid`) VALUES ('5', 'delivered', '1', '5');
+
+CREATE TABLE `ecommerce`.`payments` (
+  `paymentid` INT NOT NULL,
+  `paymentdate DATETIME` VARCHAR(45) NOT NULL,
+  `orderid` INT NOT NULL,
+  `amount` FLOAT NOT NULL,
+  `paymentmode` VARCHAR(50) NOT NULL,
+  `transactionid` INT NOT NULL,
+  PRIMARY KEY (`paymentid`),
+  INDEX `paymentsorders_idx` (`orderid` ASC) VISIBLE,
+  CONSTRAINT `paymentsorders`
+    FOREIGN KEY (`orderid`)
+    REFERENCES `ecommerce`.`orders` (`orderid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
