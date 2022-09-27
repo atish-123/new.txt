@@ -1,6 +1,6 @@
 const { response } = require('express');
 
-const dal=require('../models/categories')
+const dal=require('../models/payments')
 
 exports.getAll= async function(req, res){  
   let result=[];
