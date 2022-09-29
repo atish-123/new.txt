@@ -38,4 +38,10 @@ INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `cu
 INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('4', '2022-10-25 08:18:17', 'inprocess', '4');
 INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('5', '2022-10-26 12:18:19', 'inproces', '5');
 
-------------------------------------
+------------------------------------orderdetails-----------------------
+
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (1,1,20);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (2,2,11);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (3,3,16);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (4,4,10);
+INSERT INTO orderdetails(orderid,productid,quantity) VALUES (5,5,15);

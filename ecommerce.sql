@@ -73,3 +73,23 @@ CREATE TABLE `ecommerce`.`orders` (
     REFERENCES `ecommerce`.`customers` (`customerid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+	
+-----------------------------Orderdetails------------------------
+CREATE TABLE `ecommerce`.`orderdetails` (
+  `orderdetailid` INT NOT NULL,
+  `orderid` INT NOT NULL,
+  `productid` INT NOT NULL,
+  `quantity` INT NULL,
+  PRIMARY KEY (`orderdetailid`),
+  INDEX `deliveryorders_idx` (`orderid` ASC) VISIBLE,
+  INDEX `deliveryshippers_idx` (`productid` ASC) VISIBLE,
+  CONSTRAINT `deliveryorders`
+    FOREIGN KEY (`orderid`)
+    REFERENCES `ecommerce`.`orders` (`orderid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `deliveryshippers`
+    FOREIGN KEY (`productid`)
+    REFERENCES `ecommerce`.`products` (`productid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
