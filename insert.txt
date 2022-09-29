@@ -1,0 +1,41 @@
+---------------------------------userid--------------------------------------------------------------------------
+
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('1', 'Atish', 'ak@123', '8234567800', 'atish@123gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('2', 'Swati', 'sw@123', '8525693522', 'swati123@gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('3', 'Ramesh', 'ra@123', '8585852652', 'ramesh123@gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('4', 'Kusum', 'ka@123', '8596969328', 'kusum123@gmail.com', 'user');
+INSERT INTO `ecommerce`.`users` (`userid`, `username`, `password`, `contactnumber`, `email`, `role`) VALUES ('5', 'Ravi', 'ra@123', '9465895689', 'ravi123@gmail.com', 'user');
+
+---------------------------------Customers--------------------------------------------------
+
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('1', 'Atish', 'Kumar', 'ak123@gmail.com', '8169394775', 'Buxar', '2', '1');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('2', 'Ankit ', 'Tiwari', 'at123@gmail.com', '6201440960', 'Ara', '1', '5');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('3', 'Ravi', 'Kumar', 'ravi@123gmail.com', '9548956556', 'Thane', '3', '4');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('4', 'Saurabh', 'Kumar', 'saurabh@123gmail.com', '8569365689', 'Patna', '4', '2');
+INSERT INTO `ecommerce`.`customers` (`customerid`, `firstname`, `lastname`, `email`, `contact number`, `address`, `accountid`, `userid`) VALUES ('5', 'Mukesh', 'Singh', 'mk@123gmail.com', '6201445256', 'Bihta', '5', '3');
+
+----------------------------------Categories-------------------------------------------------------
+
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('1', 'Electronics', 'laptop');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('2', 'Cloths', 'shirt');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('3', 'Toys', 'teddy');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('4', 'Grocery', 'Oil');
+INSERT INTO `ecommerce`.`categories` (`idcategories`, `title`, `pictures`) VALUES ('5', 'Fruits', 'Apple');
+
+-----------------------------------Shipping------------------------
+
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('1', '1', 'ak123@gmail.com', '8569696989', 'ekart');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('2', '3', 'ck123@gmail.com', '9696968965', 'meesho');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('3', '4', 'rk123@gmail.com', '9293568956', 'flipkart');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('4', '2', 'jk123@gmail.com', '9465235689', 'amazon');
+INSERT INTO `ecommerce`.`shippers` (`shipperid`, `userid`, `email`, `contactnumber`, `organization`) VALUES ('5', '5', 'mk123@gmail.com', '9636989878', 'Blinkit');
+
+-------------------------------------orders----------------------------
+
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('1', '2022-10-25 08:18:15', 'inprocess', '1');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('2', '2022-10-26 09:25:17', 'inprocess', '2');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('3', '2022-10-25 10:28:17', 'inprocess', '3');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('4', '2022-10-25 08:18:17', 'inprocess', '4');
+INSERT INTO `ecommerce`.`orders` (`orderid`, `orderdate DATETIME`, `status`, `customerid`) VALUES ('5', '2022-10-26 12:18:19', 'inproces', '5');
+
+------------------------------------
