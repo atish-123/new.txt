@@ -59,4 +59,17 @@ CREATE TABLE `ecommerce`.`shippers` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 	
--------------------------------
+-------------------------------orders----------------------------------
+
+CREATE TABLE `ecommerce`.`orders` (
+  `orderid` INT NOT NULL,
+  `orderdate DATETIME` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(20) NULL,
+  `customerid` INT NOT NULL,
+  PRIMARY KEY (`orderid`),
+  INDEX `ordercustomers_idx` (`customerid` ASC) VISIBLE,
+  CONSTRAINT `ordercustomers`
+    FOREIGN KEY (`customerid`)
+    REFERENCES `ecommerce`.`customers` (`customerid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
